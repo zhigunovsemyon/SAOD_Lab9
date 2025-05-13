@@ -1,5 +1,7 @@
 #include "tree.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 /*
 В некоторой древовидной бинарной структуре опытным
@@ -55,11 +57,14 @@ void printIntTree(Tree * pTree)
 
 int main()
 {
-	int a[] = {1, 4, 7, 2, 3, -8, 0};
+	srand(time(NULL));
+	int array[] = {1, 4, 7, 2, 3, -8, 0};
+	size_t size_arr = sizeof(array) / sizeof(*array);
 
+	/*Инициализация дерева, заполнение из массива*/
 	Tree * mt = TreeInit(sizeof(int), cmp_int);
+	TreeInsertArray(mt, array, size_arr);
 
-	TreeInsertArray(mt, a, sizeof(a) / sizeof(*a));
 	do {
 		printIntTree(mt);
 		int guess;
