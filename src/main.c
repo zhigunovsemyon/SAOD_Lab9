@@ -28,12 +28,17 @@ static void printIntTreeNLR_(struct TreeNode * pNode)
 {
 	if (!pNode)
 		return;
+	pNode->access_count++;
 
-	if (pNode->l != NULL)
-		printf("%d", *(int *)pNode->l->data);
-	printf(" - %d - ", *(int *)pNode->data);
-	if (pNode->r != NULL)
-		printf("%d", *(int *)pNode->r->data);
+	if (pNode->l != NULL) {
+		printf("{%d|%d}", pNode->l->access_count,
+		       *(int *)pNode->l->data);
+	}
+	printf(" - {%d|%d} - ", pNode->access_count, *(int *)pNode->data);
+	if (pNode->r != NULL) {
+		printf("{%d|%d}", pNode->r->access_count,
+		       *(int *)pNode->r->data);
+	}
 	putc('\n', stdout);
 
 	printf("l:\n");

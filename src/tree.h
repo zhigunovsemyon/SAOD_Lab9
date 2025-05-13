@@ -12,6 +12,7 @@ typedef struct {
 } Tree;
 
 struct TreeNode {
+	int access_count;
 	struct TreeNode *l, *r, *p;
 	void * data;
 };

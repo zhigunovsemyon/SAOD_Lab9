@@ -68,6 +68,7 @@ NodeNew_(struct TreeNode * p, void * const src, size_t esize)
 	pNode->p = p;
 	pNode->r = pNode->l = NULL;
 	pNode->data = pNode + 1;
+	pNode->access_count = 0;
 
 	memcpy(pNode->data, src, esize);
 	return pNode;
@@ -88,6 +89,8 @@ static bool TreeInsert_(struct TreeNode ** pNode,
 	assert(*pNode != NULL);
 
 	int cmp_res = compar((*pNode)->data, src);
+	/*Каждое сравнение является обращением к элементу*/
+	(*pNode)->access_count++;
 
 	/*Если под pNode находится элемент, равный источнику*/
 	if (cmp_res == 0) {
@@ -130,6 +133,8 @@ TreeLocate_(struct TreeNode ** pNode, void * const key, compar_fn compar)
 	assert(*pNode != NULL);
 
 	int cmp_res = compar((*pNode)->data, key);
+	/*Каждое сравнение является обращением к элементу*/
+	(*pNode)->access_count++;
 
 	/*Если под pNode находится элемент, равный источнику*/
 	if (cmp_res == 0) {
