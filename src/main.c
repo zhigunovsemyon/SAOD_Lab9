@@ -50,14 +50,20 @@ static void printIntTreeNLR_(struct TreeNode * pNode)
 	putchar('\n');
 }
 
-void printIntTree(Tree * pTree)
+static void printIntTree(Tree * pTree)
 {
 	printIntTreeNLR_(pTree->root);
 }
 
+static void ra_tree(Tree * t, int arr[], size_t arrsize, int count)
+{
+	while (--count)
+		TreeBelongs(t, arr + (rand() % arrsize));
+}
+
 int main()
 {
-	srand(time(NULL));
+	srand((unsigned)time(NULL));
 	int array[] = {1, 4, 7, 2, 3, -8, 0};
 	size_t size_arr = sizeof(array) / sizeof(*array);
 
@@ -65,21 +71,10 @@ int main()
 	Tree * mt = TreeInit(sizeof(int), cmp_int);
 	TreeInsertArray(mt, array, size_arr);
 
-	do {
-		printIntTree(mt);
-		int guess;
-		fputs("Введите число: ", stdout);
-		if (scanf("%d", &guess) < 1)
-			break;
-		if (TreeRemove(mt, &guess)) {
-			puts("Вы угадали!");
-			if (mt->root == NULL)
-				break;
-			else
-				continue;
-		}
-		puts("Попробуйте снова");
-	} while (1);
+	printIntTree(mt);
+	ra_tree(mt, array, size_arr, 100);
+	
+	printIntTree(mt);
 
 	TreeFree(mt);
 	return 0;
