@@ -70,11 +70,23 @@ int main()
 	Tree * mt = TreeInit(sizeof(int), cmp_int);
 	TreeInsertArray(mt, array, size_arr);
 
+	puts("===До случайного доступа===");
 	printIntTree(mt);
 	ra_tree(mt, array, size_arr, 100);
 
+	puts("===После случайного доступа===");
 	printIntTree(mt);
 
+	Tree * new_tree = TreeRebuild(mt);
+	if (!new_tree) {
+		TreeFree(mt);
+		return -1;
+	}
 	TreeFree(mt);
+
+	puts("===После пересборки===");
+	printIntTree(new_tree);
+	TreeFree(new_tree);
+
 	return 0;
 }
