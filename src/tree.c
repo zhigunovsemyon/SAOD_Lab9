@@ -1,4 +1,5 @@
 #include "tree.h"
+#include "sortvec.h"
 #include <assert.h>
 #include <malloc.h>  /*malloc(), free()*/
 #include <stdbool.h> /*bool*/
@@ -237,4 +238,49 @@ void TreeFree(Tree * pTree)
 {
 	TreeFree_(&(pTree->root));
 	free(pTree);
+}
+
+/*Возвращает false при удаче и true при неудаче*/
+static bool PushTreeInSortVec_(struct TreeNode const * pEntry, SortedVec * vec)
+{
+	assert(vec != NULL);
+
+	if (!pEntry)
+		return false;
+
+	if (PushTreeInSortVec_(pEntry->l, vec))
+		return true;
+
+	if (PushTreeInSortVec_(pEntry->r, vec))
+		return true;
+
+	if (ERR_NO != SortedVecInsert(vec, &pEntry))
+		return true;
+
+	return false;
+}
+
+Tree * TreeRebuild(Tree const * original)
+{
+	if (!original)
+		return NULL;
+
+	Tree * new_tree = TreeInit(original->esize, original->compar);
+	if (!new_tree)
+		return NULL;
+
+	SortedVec * sort_vec = SortedVecInit();
+	if (!sort_vec) {
+		TreeFree(new_tree);
+		return NULL;
+	}
+
+	if (PushTreeInSortVec_(original->root, sort_vec)) {
+		TreeFree(new_tree);
+		SortedVecDeInit(&sort_vec);
+		return NULL;
+	}
+
+	SortedVecDeInit(&sort_vec);
+	return new_tree;
 }
