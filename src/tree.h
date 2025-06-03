@@ -40,4 +40,7 @@ int TreeCopy(Tree *, void * const key, void * dest);
  * Возвращает 1 при удаче, 0 при неудаче*/
 int TreeBelongs(Tree *, void * const key);
 
+/*Перестраивает из старого дерева новое по числу обращений к элементу*/
+Tree * TreeRebuild(Tree const * original);
+
 #endif // !TREE_H_
