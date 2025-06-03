@@ -13,8 +13,8 @@ typedef struct _SortedVec {
 
 /*Сортировка/поиск элементов по возрастанию*/
 static int SortedVecComparFunc_(const void *a, const void *b) {
-	int const num2 = (*(DATATYPE *)a)->access_count;
-	int const num1 = (*(DATATYPE *)b)->access_count;
+	int const num1 = (*(DATATYPE *)a)->access_count;
+	int const num2 = (*(DATATYPE *)b)->access_count;
 	return (num1 > num2) - (num2 > num1);
 }
 
