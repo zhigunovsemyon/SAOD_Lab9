@@ -114,7 +114,7 @@ int TreeInsertArray(Tree * pTree, void * const data, size_t arrlen)
 	return count;
 }
 
-/*Вставка элемента данных*/
+/*Вставка элемента данных. 0 при неудаче, 1 при успехе*/
 int TreeInsert(Tree * pTree, void * const src)
 {
 	return TreeInsert_(&pTree->root, NULL, src, pTree->compar,
@@ -260,6 +260,17 @@ static bool PushTreeInSortVec_(struct TreeNode const * pEntry, SortedVec * vec)
 	return false;
 }
 
+/*0 при удаче, -1 при неуспехе*/
+static int TreeBuildFromNodesArray(Tree * dest, SortedVec const * src)
+{
+	for (int i = 0; i < SortedVecSize(src); ++i){
+		struct TreeNode const * cur = SortedVecGetBegin(src)[i];
+		if(!TreeInsert(dest, cur->data))
+			return -1;
+	}
+	return 0;
+}
+
 Tree * TreeRebuild(Tree const * original)
 {
 	if (!original)
@@ -276,6 +287,12 @@ Tree * TreeRebuild(Tree const * original)
 	}
 
 	if (PushTreeInSortVec_(original->root, sort_vec)) {
+		TreeFree(new_tree);
+		SortedVecDeInit(&sort_vec);
+		return NULL;
+	}
+
+	if (TreeBuildFromNodesArray(new_tree, sort_vec)) {
 		TreeFree(new_tree);
 		SortedVecDeInit(&sort_vec);
 		return NULL;
