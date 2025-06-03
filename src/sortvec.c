@@ -14,8 +14,8 @@ typedef struct _SortedVec {
 /*Сортировка/поиск элементов по возрастанию*/
 static int SortedVecComparFunc_(void const * a, void const * b)
 {
-	int const num1 = (*(DATATYPE *)a)->access_count;
-	int const num2 = (*(DATATYPE *)b)->access_count;
+	int const num2 = (*(DATATYPE *)a)->access_count;
+	int const num1 = (*(DATATYPE *)b)->access_count;
 	return (num1 > num2) - (num2 > num1);
 }
 
@@ -109,9 +109,7 @@ static size_t SortedVecFindPosition_(SortedVec const * const this,
 	 * Если первый же элемент оказался больше вставляемого,
 	 * осуществляется возврат этого индекса*/
 	for (i = 0; i < this->cur_size; i++) {
-		// if (this->begin[i]->access_count >= Element->access_count)
-		if (SortedVecComparFunc_(&(this->begin[i]),
-					 &Element))
+		if (SortedVecComparFunc_(&(this->begin[i]), &Element) > 0)
 			break;
 	}
 	return (size_t)i;
