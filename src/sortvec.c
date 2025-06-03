@@ -279,3 +279,8 @@ int SortedVecDoesBelong(SortedVec const *const this, DATATYPE const element) {
 		sizeof(DATATYPE), SortedVecComparFunc_)) ? 1 : 0;
 }
 
+/*Вставка одного элемента по указателю вектор*/
+enum ErrorCode SortedVecInsert(SortedVec * const vec, DATATYPE const * ptr)
+{
+	return SortedVecInsertArray(vec, 1, ptr);
+}

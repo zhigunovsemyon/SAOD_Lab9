@@ -16,39 +16,42 @@ enum ErrorCode {
 };
 
 // Создание вектора в памяти
-SortedVec *SortedVecInit(void);
+SortedVec * SortedVecInit(void);
 
 // Очистка памяти
-void SortedVecDeInit(SortedVec **const ptr);
+void SortedVecDeInit(SortedVec ** const ptr);
 
 // Устанавливает элемент по адресу ptr равным элементу структруры по переданному индексу
 // 
-enum ErrorCode SortedVecGet(SortedVec const *const, long index,
-			    DATATYPE *const ptr);
+//
+enum ErrorCode
+SortedVecGet(SortedVec const * const, long index, DATATYPE * const ptr);
 
 /*Вставка массива чисел Array размера ArrSize в вектор*/
-enum ErrorCode SortedVecInsertArray(SortedVec *const, size_t const ArrSize,
-				    DATATYPE const *const Array);
+enum ErrorCode SortedVecInsertArray(SortedVec * const,
+				    size_t const ArrSize,
+				    DATATYPE const * const Array);
+
+/*Вставка одного элемента по указателю вектор*/
+enum ErrorCode SortedVecInsert(SortedVec * const vec, DATATYPE const * ptr);
 
 // Удаление элемента, равного Element
-enum ErrorCode SortedVecRemoveElement(SortedVec *const, DATATYPE const Element);
+enum ErrorCode SortedVecRemoveElement(SortedVec * const,
+				      DATATYPE const Element);
 
 // Геттер размера вектора
-long SortedVecSize(SortedVec const *const);
+long SortedVecSize(SortedVec const * const);
 
 // Установка максимального элемента вектора по адресу ptr
-enum ErrorCode SortedVecGetMax(SortedVec const *const,
-			       DATATYPE *const ptr);
+enum ErrorCode SortedVecGetMax(SortedVec const * const, DATATYPE * const ptr);
 
 // Установка минимального элемента вектора по адресу ptr
-enum ErrorCode SortedVecGetMin(SortedVec const *const,
-			       DATATYPE *const ptr);
+enum ErrorCode SortedVecGetMin(SortedVec const * const, DATATYPE * const ptr);
 
 // Добавление в один вектор элементов из другого
-enum ErrorCode SortedVecAddToThis(SortedVec *const,
-				  SortedVec const *const other);
+enum ErrorCode SortedVecAddToThis(SortedVec * const,
+				  SortedVec const * const other);
 
 /*Проверка принадлежности элемента element вектору.
 1 -- принадлежит, 0 -- не принадлежит */
-int SortedVecDoesBelong(SortedVec const *const, DATATYPE const element);
-
+int SortedVecDoesBelong(SortedVec const * const, DATATYPE const element);
