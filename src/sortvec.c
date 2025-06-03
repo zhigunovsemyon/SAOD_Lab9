@@ -284,3 +284,8 @@ enum ErrorCode SortedVecInsert(SortedVec * const vec, DATATYPE const * ptr)
 {
 	return SortedVecInsertArray(vec, 1, ptr);
 }
+
+DATATYPE * SortedVecGetBegin(SortedVec const * vec)
+{
+	return vec->begin;
+}

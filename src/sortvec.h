@@ -55,3 +55,6 @@ enum ErrorCode SortedVecAddToThis(SortedVec * const,
 /*Проверка принадлежности элемента element вектору.
 1 -- принадлежит, 0 -- не принадлежит */
 int SortedVecDoesBelong(SortedVec const * const, DATATYPE const element);
+
+/*Указатель на начало элементов*/
+DATATYPE * SortedVecGetBegin(SortedVec const *);
